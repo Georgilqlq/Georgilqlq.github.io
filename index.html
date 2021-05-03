@@ -80,12 +80,12 @@
         // }
         console.log(pointer.position.x);
         function deviceMotion(event) {
-            console.log(Math.round(event.x));
+            console.log(Math.round(event.acceleration.x));
             // document.getElementById('acceleration1').innerHTML = xyz( event.acceleration );
 
             console.log(pointer.position.x);
             // document.getElementById('acceleration2').innerHTML = xyz(event.accelerationIncludingGravity);
-            pointer.position.x = event.x;
+            pointer.position.x = event.acceleration.x;
         }
         // window.addEventListener('deviceorientation', function (e) {
         //     var gammaRotation = e.gamma;
