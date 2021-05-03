@@ -30,6 +30,7 @@
         const box_size_height = visibleHeightAtZDepth(0, camera) / 25;
         const box_size_width = visibleWidthAtZDepth(0, camera) / 15;
 
+
         createBoxes();
         createInteraction();
         createOrbitControls();
@@ -90,11 +91,11 @@
             var beta = event.beta;
             var gamma = event.gamma;
 
-            if (alpha > 20 && alpha < 90) {
+            if (alpha > 20 && alpha < 90 && visibleWidthAtZDepth(0, camera) > pointer.position.x) {
                 pointer.position.x += 1;
 
             }
-            else if (alpha > 270 && alpha < 340) {
+            else if (alpha > 270 && alpha < 340 && -visibleWidthAtZDepth(0, camera) < pointer.position.x) {
                 pointer.position.x -= 1;
             }
         }
