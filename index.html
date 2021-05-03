@@ -27,8 +27,8 @@
 
         vaxInit();
 
-        const box_size_height = Math.round(visibleHeightAtZDepth(0, camera) / 25);
-        const box_size_width = Math.round(visibleWidthAtZDepth(0, camera) / 15);
+        const box_size_height = visibleHeightAtZDepth(0, camera) / 25;
+        const box_size_width = visibleWidthAtZDepth(0, camera) / 15;
 
         createBoxes();
         createInteraction();
