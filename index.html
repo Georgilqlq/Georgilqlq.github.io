@@ -79,7 +79,7 @@
             return 'X=' + format(v.x) + ' Y=' + format(v.y) + ' Z=' + format(v.z);
         }
         function deviceMotion(event) {
-            console.log(event.x);
+            console.log(event.x.toFixed(1));
             // document.getElementById('acceleration1').innerHTML = xyz( event.acceleration );
 
             console.log(pointer.position.x);
