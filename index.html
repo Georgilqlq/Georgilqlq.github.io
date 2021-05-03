@@ -76,7 +76,7 @@
                 DeviceMotionEvent.requestPermission()
                     .then((state) => {
                         if (state === 'granted') {
-                            window.addEventListener('devicemotion', handleOrientation);
+                            window.addEventListener("deviceorientation", handleOrientation, true);
                         } else {
                             console.error('Request to access the orientation was rejected');
                         }
@@ -125,7 +125,7 @@
 
         }
     </script>
-    <!-- <button onclick='requestOrientationPermission();'>Request orientation permission</button> -->
+    <button onclick='requestOrientationPermission();'>Request orientation permission</button>
 
 </body>
 
