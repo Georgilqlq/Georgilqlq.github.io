@@ -64,7 +64,7 @@
             DeviceOrientationEvent.requestPermission()
                 .then(response => {
                     if (response == 'granted') {
-                        window.addEventListener('deviceorientation', handleOrientation)
+                        window.addEventListener('deviceorientation', handleOrientation,true)
                     }
                 })
                 .catch(console.error)
