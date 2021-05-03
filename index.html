@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>81967
+    <title>pixel art attempt
     </title>
     <meta charset="utf-8">
 
@@ -82,8 +82,9 @@
             console.log(event);
             // document.getElementById('acceleration1').innerHTML = xyz( event.acceleration );
 
+            console.log(pointer.position.x);
             // document.getElementById('acceleration2').innerHTML = xyz(event.accelerationIncludingGravity);
-            pointer.position.x += event.x;
+            pointer.position.x = event.x;
         }
         // window.addEventListener('deviceorientation', function (e) {
         //     var gammaRotation = e.gamma;
