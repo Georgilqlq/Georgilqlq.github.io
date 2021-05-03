@@ -69,7 +69,7 @@
         // }
 
 
-        window.addEventListener("devicemotion", deviceMotion, true);
+        window.addEventListener("deviceorientation", handleOrientation, true);
 
         // function format(x) {
         //     if (x === null) return 'null';
@@ -78,14 +78,19 @@
         // function xyz(v) {
         //     return 'X=' + format(v.x) + ' Y=' + format(v.y) + ' Z=' + format(v.z);
         // }
-        console.log(pointer.position.x);
-        function deviceMotion(event) {
-            console.log(Math.round(event.acceleration.x));
+        // console.log(pointer.position.x);
+        function handleOrientation(event) {
+            // console.log(Math.round(event.acceleration.x));
             // document.getElementById('acceleration1').innerHTML = xyz( event.acceleration );
 
-            console.log(pointer.position.x);
+            // console.log(pointer.position.x);
             // document.getElementById('acceleration2').innerHTML = xyz(event.accelerationIncludingGravity);
-            pointer.position.x = event.acceleration.x;
+            var absolute = event.absolute;
+            var alpha = event.alpha;
+            var beta = event.beta;
+            var gamma = event.gamma;
+
+            pointer.position.x += alpha;
         }
         // window.addEventListener('deviceorientation', function (e) {
         //     var gammaRotation = e.gamma;
