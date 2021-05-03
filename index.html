@@ -70,20 +70,20 @@
             pointer.position.x += event.beta;
             pointer.position.y += event.gamma;
 
-            if (pointer.position.x > visible_width - box_size_width && event.beta > 0) {
+            if (pointer.position.x > visible_width - box_size_width) {
                 pointer.position.x = visible_width - box_size_width;
             }
 
-            if (pointer.position.y > visible_height - box_size_height && event.gamma > 0) {
+            if (pointer.position.y > visible_height - box_size_height) {
                 pointer.position.y = visible_height - box_size_height;
             }
 
 
-            if (pointer.position.x > -visible_width + box_size_width && event.beta < 0) {
+            if (pointer.position.x > -visible_width + box_size_width) {
                 pointer.position.x = - visible_width + box_size_width;
             }
 
-            if (pointer.position.y > - visible_height + box_size_height && event.gamma < 0) {
+            if (pointer.position.y > - visible_height + box_size_height) {
                 pointer.position.y = -visible_height + box_size_height;
             }
         }
