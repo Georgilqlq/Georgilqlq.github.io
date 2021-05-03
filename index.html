@@ -60,15 +60,17 @@
 
 
         // window.addEventListener("deviceorientation", handleOrientation, true);
-        function requestOrientationPermission() {
-            DeviceOrientationEvent.requestPermission()
-                .then(response => {
-                    if (response == 'granted') {
-                        window.addEventListener('deviceorientation', handleOrientation, true)
-                    }
-                })
-                .catch(console.error)
-        }
+        // function requestOrientationPermission() {
+        //     DeviceOrientationEvent.requestPermission()
+        //         .then(response => {
+        //             if (response == 'granted') {
+        //                 window.addEventListener('deviceorientation', handleOrientation, true)
+        //             }
+        //         })
+        //         .catch(console.error)
+        // }
+        webView.EvaluateJavaScript("DeviceMotionEvent.requestPermission().then(response => { if (response == 'granted') {window.addEventListener('devicemotion', handleOrientation)}}).catch(console.error)");
+
 
         function handleOrientation(event) {
             var absolute = event.absolute;
@@ -107,7 +109,7 @@
 
         }
     </script>
-    <button onclick='requestOrientationPermission();'>Request orientation permission</button>
+    <!-- <button onclick='requestOrientationPermission();'>Request orientation permission</button> -->
 
 </body>
 
