@@ -27,8 +27,10 @@
 
         vaxInit();
 
-        const box_size_height = visibleHeightAtZDepth(0, camera) / 25;
-        const box_size_width = visibleWidthAtZDepth(0, camera) / 15;
+        const visible_height = visibleHeightAtZDepth(0, camera);
+        const visible_width = visibleWidthAtZDepth(0, camera);
+        const box_size_height = visible_height / 25;
+        const box_size_width = visible_width / 15;
 
 
         createBoxes();
@@ -56,67 +58,39 @@
 
         scene.add(directionalLight);
 
-        // window.addEventListener("deviceorientation", handleOrientation, true);
-
-
-        // function handleOrientation(event) {
-        //     console.log(event);
-        //     // console.log(event.acceleration.x);
-        //     // pointer.position.x += event.accelerationIncludingGravity.x;
-        //     var absolute = event.absolute;
-        //     var alpha = event.alpha;
-        //     var beta = event.beta;
-        //     var gamma = event.gamma;
-        // }
-
 
         window.addEventListener("deviceorientation", handleOrientation, true);
 
-        // function format(x) {
-        //     if (x === null) return 'null';
-        //     return x.toFixed(1);
-        // }
-        // function xyz(v) {
-        //     return 'X=' + format(v.x) + ' Y=' + format(v.y) + ' Z=' + format(v.z);
-        // }
-        // console.log(pointer.position.x);
         function handleOrientation(event) {
-            // console.log(Math.round(event.acceleration.x));
-            // document.getElementById('acceleration1').innerHTML = xyz( event.acceleration );
-
-            // console.log(pointer.position.x);
-            // document.getElementById('acceleration2').innerHTML = xyz(event.accelerationIncludingGravity);
             var absolute = event.absolute;
-            console.log(absolute);
             var alpha = event.alpha;
             var beta = event.beta;
             var gamma = event.gamma;
 
-            if (alpha > 20 && alpha < 90 && visibleWidthAtZDepth(0, camera) / 2 - box_size_width > pointer.position.x) {
-                pointer.position.x += 1;
+            pointer.position.x += event.beta;
+            pointer.position.y += event.gamma;
 
+            if (pointer.position.x > visible_width - box_size_width && event.beta > 0) {
+                pointer.position.x = visible_width - box_size_width;
             }
-            else if (alpha > 270 && alpha < 340 && -visibleWidthAtZDepth(0, camera) / 2 + box_size_width < pointer.position.x) {
-                pointer.position.x -= 1;
+
+            if (pointer.position.y > visible_height - box_size_height && event.gamma > 0) {
+                pointer.position.y = visible_height - box_size_height;
+            }
+
+
+            if (pointer.position.x > -visible_width + box_size_width && event.beta < 0) {
+                pointer.position.x = - visible_width + box_size_width;
+            }
+
+            if (pointer.position.y > - visible_height + box_size_height && event.gamma < 0) {
+                pointer.position.y = -visible_height + box_size_height;
             }
         }
-        // window.addEventListener('deviceorientation', function (e) {
-        //     var gammaRotation = e.gamma;
-        //     // pointer.position.x += gammaRotation;
-        //     document.getElementById('acceleration2').innerHTML = xyz(e.accelerationIncludingGravity);
 
-        //     // console.log(gammaRotation);
-
-        // });
         function animate() {
-            // console.log(event);
             pointer.position.z = 7 + 2 * Math.sin(t * 2);
             control.update();
-
-            // pointer.position.x += alpha;
-            // deviceMotion(DeviceMotionEvent);
-            // pointer.position.x += DeviceMotionEvent.accelerationIncludingGravity.x;
-
 
         }
     </script>
