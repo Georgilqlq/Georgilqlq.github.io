@@ -87,6 +87,7 @@
             // console.log(pointer.position.x);
             // document.getElementById('acceleration2').innerHTML = xyz(event.accelerationIncludingGravity);
             var absolute = event.absolute;
+            console.log(absolute);
             var alpha = event.alpha;
             var beta = event.beta;
             var gamma = event.gamma;
@@ -95,7 +96,7 @@
                 pointer.position.x += 1;
 
             }
-            else if (alpha > 270 && alpha < 340 && -visibleWidthAtZDepth(0, camera) / 2 - box_size_width < pointer.position.x) {
+            else if (alpha > 270 && alpha < 340 && -visibleWidthAtZDepth(0, camera) / 2 + box_size_width < pointer.position.x) {
                 pointer.position.x -= 1;
             }
         }
