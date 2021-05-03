@@ -94,6 +94,9 @@
                 pointer.position.x += 1;
 
             }
+            else if (alpha < -90) {
+                pointer.position.x -= 1;
+            }
         }
         // window.addEventListener('deviceorientation', function (e) {
         //     var gammaRotation = e.gamma;
