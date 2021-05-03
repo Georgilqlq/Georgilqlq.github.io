@@ -67,12 +67,12 @@
             var beta = event.beta;
             var gamma = event.gamma;
 
-            console.log(event.beta);
-            console.log(event.gamma);
-            console.log(pointer.position.x);
-            console.log(pointer.position.y);
-            pointer.position.x += event.beta;
-            pointer.position.y += event.gamma;
+            // console.log(event.beta);
+            // console.log(event.gamma);
+            // console.log(pointer.position.x);
+            // console.log(pointer.position.y);
+            pointer.position.x += event.beta/10;
+            pointer.position.y += event.gamma/10;
 
             if (pointer.position.x > visible_width / 2 - box_size_width) {
                 pointer.position.x = visible_width / 2 - box_size_width;
