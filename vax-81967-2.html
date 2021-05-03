@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>81967
+    </title>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="Cache-control" content="no-cache">
+
+    <script src="three.min.js"></script>
+    <script src="stats.min.js"></script>
+    <script src="WebGL.js"></script>
+    <script src="vax.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script src="three.interaction.js"></script>
+    <script src="dat.gui.min.js"></script>
+    <!-- <style src="dat-gui-light-theme.css"></style> -->
+    <!-- <script src="device-orientation-controls.js"></script> -->
+    <!-- <script  src="DeviceOrientationControls.js"></script> -->
+</head>
+
+<body>
+    <script>
+
+        vaxInit();
+
+        const box_size_height = visibleHeightAtZDepth(0, camera) / 25;
+        const box_size_width = visibleWidthAtZDepth(0, camera) / 15;
+
+        createBoxes();
+        createInteraction();
+        createOrbitControls();
+
+        var gui = new dat.GUI();
+        const color_gui = gui.addFolder("Color");
+        color_gui.addColor(mesh_params, "color").onChange((color) => {
+            mat_pointer.color = hexToRgbThreeJs(color);
+        });
+        color_gui.add(mesh_params, 'metalness', 0.1, 1).onChange((val) => {
+            mat_pointer.metalness = val;
+        });
+        color_gui.add(mesh_params, 'roughness', 0.1, 1).onChange((val) => {
+            mat_pointer.roughness = val;
+        });
+
+
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
+        directionalLight.castShadow = true;
+        directionalLight.position.set(0, box_size_height * 2, 30);
+
+        // directionalLight.shadow.camera.far = 1000;
+        // directionalLight.shadow.camera.near = -200;
+
+        // directionalLight.shadow.camera.left = -40;
+        // directionalLight.shadow.camera.right = 40;
+        // directionalLight.shadow.camera.top = 20;
+        // directionalLight.shadow.camera.bottom = -20;
+        // directionalLight.shadow.camera.zoom = 1;
+        // directionalLight.shadow.camera.needsUpdate = true;
+
+        // var targetObject = new THREE.Object3D();
+        // targetObject.position.set(0, 3, 10);
+        // directionalLight.target = targetObject;
+
+        scene.add(directionalLight);
+        // scene.add(directionalLight.target);
+
+        // window.addEventListener("deviceorientation", handleOrientation, true);
+
+
+        // function handleOrientation(event) {
+        //     console.log(event);
+        //     // console.log(event.acceleration.x);
+        //     // pointer.position.x += event.accelerationIncludingGravity.x;
+        //     var absolute = event.absolute;
+        //     var alpha = event.alpha;
+        //     var beta = event.beta;
+        //     var gamma = event.gamma;
+        // }
+
+        // var controls = DeviceOrientationControls(pointer, true);
+        // console.log(controls.enabled);
+        // window.addEventListener("devicemotion", deviceMotion, true);
+
+        // function format(x) {
+        //     if (x === null) return 'null';
+        //     return x.toFixed(1);
+        // }
+        // function xyz(v) {
+        //     return 'X=' + format(v.x) + ' Y=' + format(v.y) + ' Z=' + format(v.z);
+        // }
+        // function deviceMotion(event) {
+        //     console.log(event);
+        //     document.getElementById('acceleration1').innerHTML = xyz( event.acceleration );
+
+        //     document.getElementById('acceleration2').innerHTML = xyz(event.accelerationIncludingGravity);
+        // }
+        // window.addEventListener('deviceorientation', function (e) {
+        //     var gammaRotation = e.gamma;
+        //     // pointer.position.x += gammaRotation;
+        //     document.getElementById('acceleration2').innerHTML = xyz(e.accelerationIncludingGravity);
+
+        //     // console.log(gammaRotation);
+
+        // });
+        function animate() {
+            // console.log(event);
+            pointer.position.z = 7 + 2 * Math.sin(t * 2);
+            control.update();
+
+            // pointer.position.x += alpha;
+            // deviceMotion(DeviceMotionEvent);
+            // pointer.position.x += DeviceMotionEvent.accelerationIncludingGravity.x;
+
+
+        }
+    </script>
+</body>
+
+</html>
