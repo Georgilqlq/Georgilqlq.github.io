@@ -101,21 +101,21 @@
             pointer.position.x += event.gamma / 30;
             pointer.position.y -= event.beta / 30;
 
-            if (pointer.position.x > visible_width / 2 - box_size_width) {
-                pointer.position.x = visible_width / 2 - box_size_width;
+            if (pointer.position.x > visible_width / 2 - box_size_width / 2) {
+                pointer.position.x = visible_width / 2 - box_size_width / 2;
             }
 
-            if (pointer.position.y > visible_height / 2 - box_size_height) {
-                pointer.position.y = visible_height / 2 - box_size_height;
+            if (pointer.position.y > visible_height / 2 - box_size_height / 2) {
+                pointer.position.y = visible_height / 2 - box_size_height / 2;
             }
 
 
-            if (pointer.position.x < -visible_width / 2 + box_size_width) {
-                pointer.position.x = - visible_width / 2 + box_size_width;
+            if (pointer.position.x < -visible_width / 2 + box_size_width / 2) {
+                pointer.position.x = - visible_width / 2 + box_size_width / 2;
             }
 
-            if (pointer.position.y < - visible_height / 2 + box_size_height) {
-                pointer.position.y = -visible_height / 2 + box_size_height;
+            if (pointer.position.y < - visible_height / 2 + box_size_height / 2) {
+                pointer.position.y = -visible_height / 2 + box_size_height / 2;
             }
         }
 
