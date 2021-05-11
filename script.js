@@ -92,8 +92,10 @@ function createInteraction() {
     pointer.on('pointerup', function (ev) {
         for (var i = 0; i < 15; i++) {
             for (var j = 0; j < 25; j++) {
-                if (boxes[i][j].position.x == pointer.position.x
-                    && boxes[i][j].position.y == pointer.position.y) {
+                if (boxes[i][j].position.x + box_size_width / 2 >= pointer.position.x
+                    && boxes[i][j].position.x - box_size_width / 2 <= pointer.position.x
+                    && boxes[i][j].position.y + box_size_height / 2 >= pointer.position.y
+                    && boxes[i][j].position.y - box_size_height / 2 <= pointer.position.y) {
                     boxes[i][j].material.color.setRGB(mat_pointer.color.r, mat_pointer.color.g, mat_pointer.color.b);
                 }
             }
@@ -116,7 +118,7 @@ function createOrbitControls() {
 
 var renderer, scene, camera, light, stats, clock, t, dT, animate, perspective = true;
 
-function vaxInit() {
+function Init() {
     if (!THREE.WEBGL.isWebGLAvailable())
         alert(THREE.WEBGL.getWebGLErrorMessage());
 
