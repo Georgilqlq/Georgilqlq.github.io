@@ -53,6 +53,8 @@
         var directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
         directionalLight.castShadow = true;
         directionalLight.position.set(0, box_size_height * 2, 30);
+        light.shadow.mapSize.width = visible_width;
+        light.shadow.mapSize.height = visible_height;
 
         scene.add(directionalLight);
 
