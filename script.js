@@ -1,15 +1,10 @@
-
-
 const visibleHeightAtZDepth = (depth, camera) => {
-    // compensate for cameras not positioned at z=0
     const cameraOffset = camera.position.z;
     if (depth < cameraOffset) depth -= cameraOffset;
     else depth += cameraOffset;
 
-    // vertical fov in radians
     const vFOV = camera.fov * Math.PI / 180;
 
-    // Math.abs to ensure the result is always positive
     return 2 * Math.tan(vFOV / 2) * Math.abs(depth);
 };
 
@@ -57,6 +52,7 @@ function createBoxes() {
     }
 
 }
+
 var interaction, geo_pointer, mat_pointer, pointer;
 const mesh_params = {
     color: "#ff0000",
@@ -117,7 +113,9 @@ function createOrbitControls() {
 }
 
 var renderer, scene, camera, light, stats, clock, t, dT, animate, perspective = true;
-
+const background_color = {
+    color: "#ffff00",
+};
 function Init() {
     if (!THREE.WEBGL.isWebGLAvailable())
         alert(THREE.WEBGL.getWebGLErrorMessage());
@@ -135,7 +133,8 @@ function Init() {
     }
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color('yellow');
+
+    scene.background = new THREE.Color(background_color.color);
 
     clock = new THREE.Clock(true);
 
@@ -143,8 +142,6 @@ function Init() {
     camera.position.set(0, 0, 100);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-
-    // light = new THREE.PointLight();
     light = new THREE.AmbientLight('white', 1);
     light.position.set(0, 150, 300);
     scene.add(light);
@@ -155,8 +152,6 @@ function Init() {
     renderer.setAnimationLoop(frame);
 }
 
-
-
 function onWindowResize(event) {
     if (perspective) camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -165,8 +160,6 @@ function onWindowResize(event) {
 
 
 }
-
-
 
 function frame() {
     dT = clock.getDelta();
@@ -179,6 +172,74 @@ function frame() {
     renderer.render(scene, camera);
 }
 
+function createGUI() {
+    var gui = new dat.GUI();
+    const color_gui = gui.addFolder("Pointer");
+    color_gui.addColor(mesh_params, "color").onChange((color) => {
+        mat_pointer.color = hexToRgbThreeJs(color);
+    });
+    color_gui.add(mesh_params, 'metalness', 0.1, 1).onChange((val) => {
+        mat_pointer.metalness = val;
+    });
+    color_gui.add(mesh_params, 'roughness', 0.1, 1).onChange((val) => {
+        mat_pointer.roughness = val;
+    });
+
+    const background_gui = gui.addFolder("Background");
+    background_gui.addColor(background_color, "color").onChange((color) => {
+        scene.background = new THREE.Color(color);
+    })
+}
+
+function createShadowLight() {
+    var directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
+    directionalLight.castShadow = true;
+    directionalLight.position.set(0, box_size_height * 2, 30);
+    directionalLight.shadow.camera.left = -visible_width / 2;
+    directionalLight.shadow.camera.right = visible_height / 2;
+    directionalLight.shadow.camera.top = visible_height / 2;
+    directionalLight.shadow.camera.bottom = -visible_height / 2;
+
+    scene.add(directionalLight);
+}
+
+
+window.addEventListener("deviceorientation", handleOrientation, true);
+function handleOrientation(event) {
+    var beta = event.beta;
+    var gamma = event.gamma;
+
+    const width_max = visible_width / 2 - box_size_width / 2;
+    const height_max = visible_height / 2 - box_size_height / 2;
+    const width_min = -visible_width / 2 + box_size_width / 2;
+    const height_min = - visible_height / 2 + box_size_height / 2;
+
+    pointer.position.x += event.gamma / 30;
+    pointer.position.y -= event.beta / 30;
+
+    if (pointer.position.x > width_max) {
+        pointer.position.x = width_max;
+    }
+
+    if (pointer.position.y > height_max) {
+        pointer.position.y = height_max;
+    }
+
+
+    if (pointer.position.x < width_min) {
+        pointer.position.x = width_min;
+    }
+
+    if (pointer.position.y < height_min) {
+        pointer.position.y = height_min;
+    }
+}
+
+function animate() {
+    pointer.position.z = 7 + 2 * Math.sin(t * 2);
+    control.update();
+
+}
 
 
 

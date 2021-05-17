@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>pixel art attempt
+    <title>Pixel Art Project
     </title>
     <meta charset="utf-8">
 
@@ -17,14 +17,10 @@
     <script src="OrbitControls.js"></script>
     <script src="three.interaction.js"></script>
     <script src="dat.gui.min.js"></script>
-    <!-- <style src="dat-gui-light-theme.css"></style> -->
-    <!-- <script src="device-orientation-controls.js"></script> -->
-    <!-- <script  src="DeviceOrientationControls.js"></script> -->
 </head>
 
 <body>
     <script>
-
         Init();
 
         const visible_height = visibleHeightAtZDepth(0, camera);
@@ -32,73 +28,11 @@
         const box_size_height = visible_height / 25;
         const box_size_width = visible_width / 15;
 
-
         createBoxes();
         createInteraction();
         createOrbitControls();
-
-        var gui = new dat.GUI();
-        const color_gui = gui.addFolder("Color");
-        color_gui.addColor(mesh_params, "color").onChange((color) => {
-            mat_pointer.color = hexToRgbThreeJs(color);
-        });
-        color_gui.add(mesh_params, 'metalness', 0.1, 1).onChange((val) => {
-            mat_pointer.metalness = val;
-        });
-        color_gui.add(mesh_params, 'roughness', 0.1, 1).onChange((val) => {
-            mat_pointer.roughness = val;
-        });
-
-
-        var directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
-        directionalLight.castShadow = true;
-        directionalLight.position.set(0, box_size_height * 2, 30);
-        directionalLight.shadow.camera.left = -visible_width / 2;
-        directionalLight.shadow.camera.right = visible_height / 2;
-        directionalLight.shadow.camera.top = visible_height / 2;
-        directionalLight.shadow.camera.bottom = -visible_height / 2;
-
-        scene.add(directionalLight);
-
-
-        window.addEventListener("deviceorientation", handleOrientation, true);
-
-
-        function handleOrientation(event) {
-            var beta = event.beta;
-            var gamma = event.gamma;
-
-            const width_max = visible_width / 2 - box_size_width / 2;
-            const height_max = visible_height / 2 - box_size_height / 2;
-            const width_min = -visible_width / 2 + box_size_width / 2;
-            const height_min = - visible_height / 2 + box_size_height / 2;
-
-            pointer.position.x += event.gamma / 30;
-            pointer.position.y -= event.beta / 30;
-
-            if (pointer.position.x > width_max) {
-                pointer.position.x = width_max;
-            }
-
-            if (pointer.position.y > height_max) {
-                pointer.position.y = height_max;
-            }
-
-
-            if (pointer.position.x < width_min) {
-                pointer.position.x = width_min;
-            }
-
-            if (pointer.position.y < height_min) {
-                pointer.position.y = height_min;
-            }
-        }
-
-        function animate() {
-            pointer.position.z = 7 + 2 * Math.sin(t * 2);
-            control.update();
-
-        }
+        createGUI();
+        createShadowLight();
     </script>
 
 </body>
