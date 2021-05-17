@@ -54,68 +54,39 @@
         directionalLight.castShadow = true;
         directionalLight.position.set(0, box_size_height * 2, 30);
 
-
-
         scene.add(directionalLight);
 
 
         window.addEventListener("deviceorientation", handleOrientation, true);
-        // function requestOrientationPermission() {
-        //     DeviceOrientationEvent.requestPermission()
-        //         .then(response => {
-        //             if (response == 'granted') {
-        //                 window.addEventListener('deviceorientation', handleOrientation, true)
-        //             }
-        //         })
-        //         .catch(console.error)
-        // }
-        // webView.EvaluateJavaScript("DeviceMotionEvent.requestPermission().then(response => { if (response == 'granted') {window.addEventListener('devicemotion', handleOrientation)}}).catch(console.error)");
-        // function onClick() {
-        //     if (typeof DeviceMotionEvent.requestPermission === 'function') {
-        //         // Handle iOS 13+ devices.
-        //         DeviceMotionEvent.requestPermission()
-        //             .then((state) => {
-        //                 if (state === 'granted') {
-        //                     window.addEventListener("deviceorientation", handleOrientation, true);
-        //                 } else {
-        //                     console.error('Request to access the orientation was rejected');
-        //                 }
-        //             })
-        //             .catch(console.error);
-        //     } else {
-        //         // Handle regular non iOS 13+ devices.
-        //         window.addEventListener('devicemotion', handleOrientation);
-        //     }
-        // }
+
 
         function handleOrientation(event) {
-            var absolute = event.absolute;
-            var alpha = event.alpha;
             var beta = event.beta;
             var gamma = event.gamma;
 
-            // console.log(event.beta);
-            // console.log(event.gamma);
-            // console.log(pointer.position.x);
-            // console.log(pointer.position.y);
+            const width_max = visible_width / 2 - box_size_width / 2;
+            const height_max = visible_height / 2 - box_size_height / 2;
+            const width_min = -visible_width / 2 + box_size_width / 2;
+            const height_min = - visible_height / 2 + box_size_height / 2;
+
             pointer.position.x += event.gamma / 30;
             pointer.position.y -= event.beta / 30;
 
-            if (pointer.position.x > visible_width / 2 - box_size_width / 2) {
-                pointer.position.x = visible_width / 2 - box_size_width / 2;
+            if (pointer.position.x > width_max) {
+                pointer.position.x = width_max;
             }
 
-            if (pointer.position.y > visible_height / 2 - box_size_height / 2) {
-                pointer.position.y = visible_height / 2 - box_size_height / 2;
+            if (pointer.position.y > height_max) {
+                pointer.position.y = height_max;
             }
 
 
-            if (pointer.position.x < -visible_width / 2 + box_size_width / 2) {
-                pointer.position.x = - visible_width / 2 + box_size_width / 2;
+            if (pointer.position.x < width_min) {
+                pointer.position.x = width_min;
             }
 
-            if (pointer.position.y < - visible_height / 2 + box_size_height / 2) {
-                pointer.position.y = -visible_height / 2 + box_size_height / 2;
+            if (pointer.position.y < height_min) {
+                pointer.position.y = height_min;
             }
         }
 
@@ -125,7 +96,6 @@
 
         }
     </script>
-    <!-- <button onclick='requestOrientationPermission();'>Request orientation permission</button> -->
 
 </body>
 
